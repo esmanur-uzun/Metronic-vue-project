@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import appAxios from "../../utils/appAxios"
+import appAxios from "../../utils/appAxios";
 export default {
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
         { text: "İŞLEMLER", value: "islemler" },
       ],
       stocks: [
-      {
+        {
           Name: "Frozen Yogurt",
           SellerCode: 159,
           UnitName: 6.0,
@@ -76,12 +76,13 @@ export default {
           CreatedDate: 1,
         },
       ],
-      async created() {
-        await appAxios.get("general/Stocks").then(res=>{
-          console.log(res)
-        })
-      },
+      search:""
     };
+  },
+  async created() {
+    await appAxios.get("general/Stocks").then((res) => {
+      console.log(res);
+    });
   },
 };
 </script>
