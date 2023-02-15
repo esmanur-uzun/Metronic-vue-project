@@ -30,7 +30,11 @@
   </div>
 </template>
 <script>
-import appAxios from "../../utils/appAxios";
+// import appAxios from "../../utils/appAxios";
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios,axios)
 export default {
   data() {
     return {
@@ -79,11 +83,16 @@ export default {
       search:""
     };
   },
-  async created() {
-    await appAxios.get("general/Stocks").then((res) => {
+  // async created() {
+  //   await appAxios.get("general/Stocks").then((res) => {
+  //     console.log(res);
+  //   });
+  // },
+  mounted(){
+    Vue.axios.get("https://apitest.nilvera.com/general/Stocks").then(res=>{
       console.log(res);
-    });
-  },
+    })
+  }
 };
 </script>
 <style scoped>
