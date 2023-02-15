@@ -3,23 +3,19 @@
     <div class="d-flex">
       <template>
         <div class="col-lg-8">
-          <v-text-field v-model="Name" label="Ara"></v-text-field>
+          <v-text-field v-model="search" label="Ara"></v-text-field>
         </div>
       </template>
-      <v-btn variant="flat" class="searchBtn">
+      <v-btn variant="flat" class="searchBtn" @click="filterProduct">
         <i class="fas fa-search"></i>
         Ara</v-btn
       >
-      <v-btn variant="flat" class="addBtn">
-        <i class="fas fa-plus"></i>
-        Ekle
-      </v-btn>
+      <Popup></Popup>
     </div>
     <div>
       <v-data-table
-        v-model="selected"
         :headers="headers"
-        :items="stocks"
+        :items="filterProduct"
         :single-select="singleSelect"
         item-key="name"
         show-select
@@ -30,14 +26,14 @@
   </div>
 </template>
 <script>
-// import appAxios from "../../utils/appAxios";
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios,axios)
+import { action } from "../../utils/appAxios";
+import Popup from "../../components/Popup.vue";
 export default {
+  components:{Popup},
   data() {
     return {
+      search: "",
+      dialog: false,
       singleSelect: false,
       headers: [
         {
@@ -54,45 +50,27 @@ export default {
         { text: "OLUŞTURMA TARİHİ", value: "CreatedDate" },
         { text: "İŞLEMLER", value: "islemler" },
       ],
-      stocks: [
-        {
-          Name: "Frozen Yogurt",
-          SellerCode: 159,
-          UnitName: 6.0,
-          Price: 24,
-          TaxPercent: 4.0,
-          CreatedDate: 1,
-        },
-        {
-          Name: "esma",
-          SellerCode: 159,
-          UnitName: 6.0,
-          Price: 24,
-          TaxPercent: 4.0,
-          CreatedDate: 1,
-        },
-        {
-          Name: "nur",
-          SellerCode: 159,
-          UnitName: 6.0,
-          Price: 24,
-          TaxPercent: 4.0,
-          CreatedDate: 1,
-        },
-      ],
-      search:""
+      stocks: [],
     };
   },
-  // async created() {
-  //   await appAxios.get("general/Stocks").then((res) => {
-  //     console.log(res);
-  //   });
-  // },
-  mounted(){
-    Vue.axios.get("https://apitest.nilvera.com/general/Stocks").then(res=>{
-      console.log(res);
-    })
-  }
+  methods: {
+    // async deneme(){
+    //     const {data} = await action.stocks();
+    //     this.stocks=data.Content
+    //     console.log(this.stocks)
+    //   }
+  },
+  computed: {
+    filterProduct() {
+      return this.stocks.filter((product) =>
+        product.Name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+  },
+  async created() {
+    const { data } = await action.stocks();
+    this.stocks = data.Content;
+  },
 };
 </script>
 <style scoped>
