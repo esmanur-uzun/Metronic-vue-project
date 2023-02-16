@@ -10,7 +10,6 @@
         <i class="fas fa-search"></i>
         Ara</v-btn
       >
-      <Popup></Popup>
     </div>
     <div>
       <v-data-table
@@ -27,13 +26,12 @@
 </template>
 <script>
 import { action } from "../../utils/appAxios";
-import Popup from "../../components/Popup.vue";
+// import Popup from "../../components/Popup.vue";
 export default {
-  components:{Popup},
+  components:{},
   data() {
     return {
       search: "",
-      dialog: false,
       singleSelect: false,
       headers: [
         {

@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog v-model="dialog" max-width="600px">
         <v-btn flat slot="activator" class="success">Ekle</v-btn>
         <v-card>
             <v-card-title>
@@ -10,6 +10,10 @@
 </template>
 <script>
 export default{
-
+    data(){
+        return {
+            dialog: true
+        }
+    }
 }
 </script>

@@ -15,7 +15,9 @@ export const action = {
         }).catch((err) => {
             console.log(err)
         })
-    }
+    },
+    
 }
+
 
 export default action;

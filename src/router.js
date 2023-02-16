@@ -26,6 +26,11 @@ export default new Router({
           component: () => import("@/view/pages/Builder.vue")
         },
         {
+          path: "/newstock",
+          name: "newstock",
+          component: () => import("@/view/pages/NewStock.vue")
+        },
+        {
           path: "/vue-bootstrap",
           name: "vue-bootstrap",
           component: () =>
